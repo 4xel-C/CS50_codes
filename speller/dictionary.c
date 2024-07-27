@@ -15,7 +15,8 @@ typedef struct node
 } node;
 
 // TODO: Choose number of buckets in hash table
-const unsigned int N = 26;
+// Sum of the first 3 ASCII characters for the hash function=> Max value possible: ZZZ
+const unsigned int N = 'Z'+'Z'+'Z';
 
 // Hash table
 node *table[N];
@@ -55,8 +56,24 @@ bool check(const char *word)
 // Hashes word to a number
 unsigned int hash(const char *word)
 {
-    // TODO: Improve this hash function
-    return toupper(word[0]) - 'A';
+    // will sum the ascii value of the 3 fisrt uppercased letters of the world to generate the hash
+    int value = 0;
+    int len_word = strlen(word);
+    if (len_word > 3)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            value += toupper(word[i]);
+        }
+    }
+    else
+    {
+        for (int i = 0; i < len_word; i++)
+        {
+            value += toupper(word[i]);
+        }
+    }
+    return value;
 }
 
 // Loads dictionary into memory, returning true if successful, else false
