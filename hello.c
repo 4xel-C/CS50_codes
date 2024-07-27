@@ -1,4 +1,3 @@
-#include <cs50.h>   // load the library to "get_string"  from cs50 library file
 #include <stdio.h>  // load the library for fucntion (printf) Studio.h contains all the function (header file)
 
 //  first function to print 'hello'
@@ -40,7 +39,7 @@ else if (x == Y)
 
 // declare a counter variable and add 1
 int counter = 0;
-counter = coutner + 1;
+counter = counter + 1;
 counter += 1;
-counter ++   // another way to increment the variable by 1.
-counter -- // decrease counter of 1
+counter ++;   // another way to increment the variable by 1.
+counter --; // decrease counter of 1
