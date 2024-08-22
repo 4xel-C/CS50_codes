@@ -1,4 +1,5 @@
 -- This file shows exemple of SQL request using sqlite3 and the movies.db file.
+-- https://cdn.cs50.net/2023/fall/psets/7/movies.zip
 
 -- Find the average rating of films in 2012
 
