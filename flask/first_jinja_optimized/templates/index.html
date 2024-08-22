@@ -6,7 +6,13 @@
 
         <form action="/greet" method="get">
             <input autocomplete="off" autofocus name="name" type="text">
-            <button type="submit">Greet</button>
+            <button type="submit">Greet method GET</button>
+        </form>
+
+        <!-- methode POST pour mot de passe par exemple, + private, n'update par l'URI -->
+        <form method="post">
+            <input autocomplete="off" autofocus name="name" type="text">
+            <button type="submit">Greet method POST</button>
         </form>
 
 {% endblock %}

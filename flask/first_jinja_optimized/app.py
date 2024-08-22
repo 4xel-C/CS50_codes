@@ -13,13 +13,22 @@ app = Flask(__name__)
 #     name = request.args.get("name", "world")  
 #     return render_template("index.html", name=name)
 
-@app.route("/")
+
+@app.route("/", methods=["GET", "POST"])
 def index():
+    # permet de récupérer les valeurs d'un form d'une méthode POST (ne s'affiche plus dans l'URL, pour le cas d'un mot de passe par exemple)
+    if request.method == "POST":
+        name = request.form.get("name")
+        if name == "":
+            return render_template("greet.html", name="world POST")
     return render_template("index.html")
+
 
 # permet d'appliquer la fonction quand l'URI s'update sur /greet via le formulaire html et l'attribut action "Greet"
 @app.route("/greet")
 def greet():
     # récupère et parse les informations de requête de l'URI (?name=exemple) sous forme de dictionnaire
-    name = request.args.get("name", "world")
+    name = request.args.get("name")
+    if name == "":
+        return render_template("greet.html", name="world")
     return render_template("greet.html", name=name)
