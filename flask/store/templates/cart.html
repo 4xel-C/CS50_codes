@@ -1,0 +1,24 @@
+<!-- Using JinJa to create the index page -->
+
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <h1>Cart</h1>
+    <ol>
+    {%  for book in books %}
+
+        <li>{{ book[1] }}
+            <form action="/discard" method="post">
+                <input type="hidden" name="id" value="{{ book[0] }}">
+                <button type="submit">Discard from cart</button>
+            </form>
+        </li>
+    {% endfor %}
+    </ol>
+
+    <form action="/" method="GET">
+        <button type="submit">Return to List</button>
+    </form>
+
+{% endblock %}
