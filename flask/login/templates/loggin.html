@@ -1,0 +1,12 @@
+<!-- Using JinJa to create the loggin page -->
+
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <form action="/loggin" method="post">
+        <input type="text" autocomplete="off" autofocus name="name" placeholder="Name">
+        <button type="submit">Log in</button>
+    </form>
+
+{% endblock %}
