@@ -1,5 +1,9 @@
 # Create shopping app using cookies to remember selection from databases, with discard option.
 
+
+# Improvement axes: -put the cursor into a context manager (with)
+#  -Use Object relationnal Mapping (SQLAlchemy or Django ORM) to manage data bases connection and extraction, more secure.
+
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 import sqlite3
