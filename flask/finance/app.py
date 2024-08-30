@@ -80,7 +80,7 @@ def buy():
         # request db for user'cash
         with sqlite3.connect("finance.db") as conn:
             cur = conn.cursor()
-            cur.execute("SELECT cash FROM users WHERE id=?", session["user_id"])
+            cur.execute("SELECT cash FROM users WHERE id=?", [session["user_id"]])
             row = cur.fetchall()
         cash = row[0][0]
         total = float(price) * float(shares)

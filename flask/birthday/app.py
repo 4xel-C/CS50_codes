@@ -18,7 +18,7 @@ def after_request(response):
     return response
 
 
-@app.route("/", methods=["GET", "POST", "DELETE"])
+@app.route("/", methods=["GET", "POST"])
 def index():
 # DELETE an entry
     if request.method == "POST" and request.form.get("id"):
