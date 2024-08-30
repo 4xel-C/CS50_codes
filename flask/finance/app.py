@@ -1,10 +1,12 @@
 import os
 
-from cs50 import SQL
+
 import datetime
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
+import sqlite3
+
 
 from helpers import apology, login_required, lookup, usd
 
@@ -18,9 +20,6 @@ app.jinja_env.filters["usd"] = usd
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
-
-# Configure CS50 Library to use SQLite database
-db = SQL("sqlite:///finance.db")
 
 
 @app.after_request
@@ -36,14 +35,18 @@ def after_request(response):
 @app.route("/")
 @login_required
 def index():
-    stocks = db.execute("SELECT symbol, stocks FROM portfolio WHERE user_id = ?", session["user_id"])
+    with sqlite3.connect("finance.db") as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT symbol, stocks FROM portfolio WHERE user_id = ?", [str(session["user_id"])])
+        stocks = cur.fetchall()
+        cur.execute("SELECT cash FROM users WHERE id = ?", [str(session["user_id"])])
+        cash = cur.fetchall()
     portfolio = []
-    cash = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])
-    total_stock_option = cash[0]["cash"]
+    total_stock_option = cash[0][0]
     for row in stocks:
-        portfolio.append({"symbol": row["symbol"], "unit_price": lookup(row["symbol"])["price"], "shares": row["stocks"], "total": (row["stocks"] * lookup(row["symbol"])["price"])})
-        total_stock_option += row["stocks"] * lookup(row["symbol"])["price"]
-    return render_template("index.html", portfolio=portfolio, cash=cash[0]["cash"],  total=total_stock_option)
+        portfolio.append({"symbol": row[0], "unit_price": lookup(row[0])["price"], "shares": row[1], "total": (row[1] * lookup(row[0])["price"])})
+        total_stock_option += row[1] * lookup(row[0])["price"]
+    return render_template("index.html", portfolio=portfolio, cash=cash[0][0],  total=total_stock_option)
 
 
 @app.route("/buy", methods=["GET", "POST"])
@@ -75,8 +78,11 @@ def buy():
         price = share_info["price"]
 
         # request db for user'cash
-        row = db.execute("SELECT cash FROM users WHERE id=?", session["user_id"])
-        cash = row[0]["cash"]
+        with sqlite3.connect("finance.db") as conn:
+            cur = conn.cursor()
+            cur.execute("SELECT cash FROM users WHERE id=?", session["user_id"])
+            row = cur.fetchall()
+        cash = row[0][0]
         total = float(price) * float(shares)
 
         # Check if user has enough money
@@ -85,16 +91,21 @@ def buy():
             return redirect("/buy")
 
         # Proceed the transaction, update portfolio, draw money from account and redirect to index page
-        db.execute("INSERT INTO transactions (date, user_id, type, symbol, unit_price, shares, total) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), session["user_id"], "buy", symbol, price, shares, total)
+        with sqlite3.connect("finance.db") as conn:
+            cur = conn.cursor()
+            cur.execute("INSERT INTO transactions (date, user_id, type, symbol, unit_price, shares, total) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                        (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), session["user_id"], "buy", symbol, price, shares, total)) 
+            
             # update portfolio table
-        if len(db.execute("SELECT * FROM portfolio WHERE user_id = ? AND symbol = ?", session["user_id"], symbol)) == 0:
-            db.execute("INSERT INTO portfolio (user_id, symbol, stocks) VALUES (?, ?, ?)", session["user_id"], symbol, shares)
-        else:
-            db.execute("UPDATE portfolio SET stocks = stocks + ? WHERE user_id = ? and symbol = ?", shares, session["user_id"], symbol)
-
+            cur.execute("SELECT * FROM portfolio WHERE user_id = ? AND symbol = ?", (session["user_id"], symbol))
+            portfolio_symbol = cur.fetchall()
+            if portfolio_symbol == 0:
+                cur.execute("INSERT INTO portfolio (user_id, symbol, stocks) VALUES (?, ?, ?)", session["user_id"], (symbol, shares))
+            else:
+                cur.execute("UPDATE portfolio SET stocks = stocks + ? WHERE user_id = ? and symbol = ?", (shares, session["user_id"], symbol))
+                
             # update cash users table
-        db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total, session["user_id"])
+            cur.execute("UPDATE users SET cash = cash - ? WHERE id = ?", (total, session["user_id"]))
         flash("Transaction successful")
         return redirect("/")
 
@@ -104,9 +115,13 @@ def buy():
 @app.route("/history")
 @login_required
 def history():
-    history = db.execute("SELECT *  FROM transactions WHERE user_id = ? ORDER  BY date DESC", session["user_id"])
-    cash = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])
-    return render_template("/history.html", history=history, cash=cash[0]["cash"])
+    with sqlite3.connect("finance.db") as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT *  FROM transactions WHERE user_id = ? ORDER  BY date DESC", [str(session["user_id"])])
+        history = cur.fetchall()
+        cur.execute("SELECT cash FROM users WHERE id = ?", [session["user_id"]])
+        cash = cur.fetchall()
+    return render_template("/history.html", history=history, cash=cash[0][0])
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -127,18 +142,20 @@ def login():
             return apology("must provide password", 403)
 
         # Query database for username
-        rows = db.execute(
-            "SELECT * FROM users WHERE username = ?", request.form.get("username")
-        )
+        with sqlite3.connect("finance.db") as conn:
+            cur = conn.cursor()
+            username = request.form.get("username")
+            cur.execute("SELECT * FROM users WHERE username = ?", ([username]))
+            rows = cur.fetchall()
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(
-            rows[0]["hash"], request.form.get("password")
+            rows[0][2], request.form.get("password")
         ):
             return apology("invalid username and/or password", 403)
 
         # Remember which user has logged in
-        session["user_id"] = rows[0]["id"]
+        session["user_id"] = rows[0][0]
 
         # Redirect user to home page
         return redirect("/")
@@ -196,13 +213,17 @@ def register():
         elif request.form.get("password") != request.form.get("confirmation"):
             # return apology("Confirmation not identical")
             flash("Confirmation and password not identical!")
+            
+        # update database
         else:
             try:
-                db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", request.form.get("username"), generate_password_hash(request.form.get("password")))
-                # insert flash message to say "Successfully registered"
+                with sqlite3.connect("finance.db") as conn:
+                    cur = conn.cursor()
+                    cur.execute("INSERT INTO users (username, hash) VALUES (?, ?)", (request.form.get("username"), generate_password_hash(request.form.get("password"))))
                 flash("Successfully registered")
                 return redirect("/")
-            except ValueError:
+            # If duplicate in the database: IntegrityError because username tagged as UNIQUE INDEX.
+            except sqlite3.IntegrityError:
                 # return apology("Username already taken!")
                 flash("Username already taken!")
 
@@ -231,24 +252,31 @@ def sell():
             return redirect("/sell")
 
         # fetching user datas
-        symbol_owned = db.execute("SELECT * FROM portfolio WHERE user_id = ? and symbol = ?", session["user_id"], symbol)
+        with sqlite3.connect("finance.db") as conn:
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM portfolio WHERE user_id = ? and symbol = ?", (session["user_id"], symbol))
+            symbol_owned = cur.fetchall()
 
         # checking selling possibilities
         if len(symbol_owned) == 0:
             flash("You do not own this stock option")
             return redirect("/sell")
-        elif symbol_owned[0]["stocks"] < shares:
+        elif symbol_owned[0][2] < shares:
             flash("You do not own enough share!")
             return redirect("/sell")
 
         # Proceeding transaction
         price = lookup(symbol)["price"]
         total = price * shares
-        db.execute("INSERT INTO transactions (date, user_id, type, symbol, unit_price, shares, total) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                   datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), session["user_id"], "sell", symbol, price, shares, total)
-        db.execute("UPDATE portfolio SET stocks = stocks - ? WHERE user_id = ? and symbol = ?", shares, session["user_id"], symbol)
-        db.execute("DELETE FROM portfolio WHERE stocks = 0")
-        db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", total, session["user_id"])
+        
+        with sqlite3.connect("finance.db") as conn:
+            cur = conn.cursor()
+            cur.execute("INSERT INTO transactions (date, user_id, type, symbol, unit_price, shares, total) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                        (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), session["user_id"], "sell", symbol, price, shares, total))
+            cur.execute("UPDATE portfolio SET stocks = stocks - ? WHERE user_id = ? and symbol = ?", (shares, session["user_id"], symbol))
+            cur.execute("DELETE FROM portfolio WHERE stocks = 0")
+            cur.execute("UPDATE users SET cash = cash + ? WHERE id = ?", (total, session["user_id"]))
+
         flash("Transaction successful")
         return redirect("/")
 
