@@ -99,8 +99,8 @@ def buy():
             # update portfolio table
             cur.execute("SELECT * FROM portfolio WHERE user_id = ? AND symbol = ?", (session["user_id"], symbol))
             portfolio_symbol = cur.fetchall()
-            if portfolio_symbol == 0:
-                cur.execute("INSERT INTO portfolio (user_id, symbol, stocks) VALUES (?, ?, ?)", session["user_id"], (symbol, shares))
+            if portfolio_symbol == []:
+                cur.execute("INSERT INTO portfolio (user_id, symbol, stocks) VALUES (?, ?, ?)", (session["user_id"], symbol, shares))
             else:
                 cur.execute("UPDATE portfolio SET stocks = stocks + ? WHERE user_id = ? and symbol = ?", (shares, session["user_id"], symbol))
                 

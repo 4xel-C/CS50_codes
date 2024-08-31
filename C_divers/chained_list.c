@@ -24,7 +24,9 @@ int main(int argc, char *argv[])
             // free memorey thus far
             return 1;
         }
-
+ 
+        n->number = 4
+        n->next = 0x09830498324
 
 
         //  PREPENDING A NODE TO THE LIST
@@ -113,3 +115,4 @@ int main(int argc, char *argv[])
     }
     
 }
+
