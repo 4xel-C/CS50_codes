@@ -1,0 +1,91 @@
+<!-- Personnal implementation of the JavaScript script -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                let result = "Correct!";
+                let teacher = ["MALAN", "DAVID", "DAVID MALAN"];
+
+                // selection question
+                document.querySelector('#c').onclick = function ()
+                {
+                    result = "Correct!";
+                    document.querySelector('#result').innerHTML = result;
+                    document.querySelector('#c').style.backgroundColor = 'green';
+
+                }
+                document.querySelector('#scratch').onclick = function ()
+                {
+                    result = "Incorrect";
+                    document.querySelector('#result').innerHTML = result;
+                    document.querySelector('#scratch').style.backgroundColor = 'red';
+                }
+                document.querySelector('#python').onclick = function ()
+                {
+                    result = "Incorrect";
+                    document.querySelector('#result').innerHTML = result;
+                    document.querySelector('#python').style.backgroundColor = 'red';
+                }
+                document.querySelector('#b').onclick = function ()
+                {
+                    result = "Incorrect";
+                    document.querySelector('#result').innerHTML = result;
+                    document.querySelector('#b').style.backgroundColor = 'red';
+                }
+
+                // free question
+
+                document.querySelector('#submit').onclick = function()
+                {
+                    let input = document.querySelector('input');
+                    if (teacher.includes(input.value.toUpperCase())){
+                        input.style.backgroundColor = "green";
+                        document.querySelector("#result2").innerHTML = "Correct!";
+                    }
+                    else {
+                        input.style.backgroundColor = "red";
+                        document.querySelector("#result2").innerHTML = "Incorrect";
+
+                    }
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <h3>What is the best programming language ?</h3>
+                <button id="scratch">Scratch</button>
+                <button id="python">Python!</button>
+                <button id="c">C</button>
+                <button id="b">B++</button>
+                <p id="result"></p>
+                <!-- TODO: Add multiple choice question here -->
+
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <h3>Who is the best CS teacher you ever had ?</h3>
+                <input type="text">
+                <button id="submit">Submit answer</button>
+                <p id="result2"></p>
+                <!-- TODO: Add free response question here -->
+            </div>
+        </div>
+    </body>
+</html>
+
