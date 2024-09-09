@@ -1,0 +1,22 @@
+10 HTML tags:
+1- <a>
+2- <button>
+3- <span>
+4- <ul>
+5- <li>
+6- <div>
+7- <header>
+8- <img>
+9- <nav>
+10 - <hr>
+
+
+5 CSS tags:
+border:  
+width:
+min-width: 
+margin:
+text-align
+
+I used bootstrap to create a navbar more easily and for the responsivity of the web site  using the containers class.
+I used JavaScript to implement a buton to switch images
