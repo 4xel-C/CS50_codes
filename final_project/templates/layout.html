@@ -29,7 +29,7 @@
                     {% if session["user_id"] %}
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/declare.html">Declare an absence</a>
+                            <a class="nav-link {% if request.path == '/declare' %}active{% endif %}" aria-current="page" href="/declare.html">Declare an absence</a>
                             </li>
                             <li class="nav-item">
                             <a class="nav-link" href="/third.html">3rd floor presence</a>
@@ -37,23 +37,33 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/fourth.html">4th floor presence</a>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Link
+                                </a>
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="#">Action</a></li>
+                                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                                  <li><hr class="dropdown-divider"></li>
+                                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                              </li>
                         </ul>
+                        
                         <ul class="navbar-nav ms-auto mt-2">
-                            <li class="nav-item"><a class="nav-link" href="/account">My account</a></li>
+                            <li class="nav-item"><a class="nav-link {% if request.path == '/account' %}active{% endif %}" href="/account">My account</a></li>
                             <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                         </ul>
                     {% else %}
                         <ul class="navbar-nav ms-auto mt-2">
-                            <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                            <li class="nav-item active"><a class="nav-link {% if request.path == '/register' %}active{% endif %}" href="/register">Register</a></li>
+                            <li class="nav-item"><a class="nav-link {% if request.path == '/login' %}active{% endif %}" href="/login">Log In</a></li>
                         </ul>
                     {% endif %}
                 </div>
             </div>
           </nav>
-
-
-
+          
         {% if get_flashed_messages() %}
             <header>
                 <div class="alert alert-primary mb-0 text-center" role="alert">
@@ -62,33 +72,13 @@
             </header>
         {% endif %}
 
+        <hr id="nav_separator">
+
         <main class="container py-5 text-center">
             {% block main %}{% endblock %}
         </main>
 
         <footer class="mb-5">
-
-            <p class="mb-3 small text-center text-muted">
-                Data provided by <a href="https://finance.yahoo.com/">Yahoo</a>
-            </p>
-
-            <form action="https://validator.w3.org/check" class="text-center" enctype="multipart/form-data" method="post" target="_blank">
-                <input name="doctype" type="hidden" value="HTML5">
-                <input name="fragment" type="hidden">
-                <input alt="Validate" src="/static/I_heart_validator.png" type="image"> <!-- https://validator.w3.org/ -->
-            </form>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    // Adapted from https://stackoverflow.com/a/10162353
-                    const html = '<!DOCTYPE ' +
-                    document.doctype.name +
-                    (document.doctype.publicId ? ' PUBLIC "' + document.doctype.publicId + '"' : '') +
-                    (!document.doctype.publicId && document.doctype.systemId ? ' SYSTEM' : '') +
-                    (document.doctype.systemId ? ' "' + document.doctype.systemId + '"' : '') +
-                    '>\n' + document.documentElement.outerHTML;
-                    document.querySelector('form[action="https://validator.w3.org/check"] > input[name="fragment"]').value = html;
-                });
-            </script>
         </footer>
 
     </body>

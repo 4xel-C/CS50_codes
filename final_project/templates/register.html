@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+<form class="row g-3" action="/register" method="post">
+    <div class="col-md-6">
+      <label for="inputName" class="form-label">First Name</label>
+      <input type="text" class="shadow form-control" id="inputName" name="first_name">
+    </div>
+    <div class="col-md-6">
+      <label for="inputLName" class="form-label">Last Name</label>
+      <input type="text" class="shadow form-control" id="inputLName" name="last_name">
+    </div>
+    <div class="col-md-6">
+      <label for="inputLogin" class="form-label">Login</label>
+      <input type="text" class="shadow form-control" id="inputLogin" name="login">
+    </div>
+    <div class="col-md-6">
+      <label for="inputPassword" class="form-label">Password</label>
+      <input type="password" class="shadow form-control" id="inputPassword" name="password">
+    </div>
+    <div class="col-md-6">
+      <label for="inputLab" class="form-label">Your laboratory N°</label>
+      <select id="inputLab" class="shadow form-select" name="laboratory">
+        <option selected>Your laboratory</option>
+        <option value="340">340</option>
+        <option value="345">345</option>
+        <option value="348">348</option>
+        <option value="353">353</option>
+        <option value="356">356</option>
+        <option value="361">361</option>
+        <option value="363">363</option>
+        <option value="368">368</option>
+        <option value="425">425</option>
+        <option value="448">448</option>
+        <option value="453">453</option>
+        <option value="456">456</option>
+        <option value="461">461</option>
+        <option value="automation">automation</option>
+        <option value="epl">epl</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+        <label for="inputConfirmation" class="form-label">Password confirmation</label>
+        <input type="password" class="shadow form-control" id="inputConfirmation" name="confirmation">
+      </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </div>
+  </form>
+{% endblock %}
