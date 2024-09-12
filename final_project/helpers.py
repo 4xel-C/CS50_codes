@@ -8,6 +8,8 @@ import uuid
 from flask import redirect, render_template, request, session
 from functools import wraps
 
+laboratory_list = ["340", "345", "348", "353", "356", "361", "363", "368", "425", "448", "453", "456", "461", "automation", "epl"]
+
 def login_required(f):
     """
     Decorate routes to require login.

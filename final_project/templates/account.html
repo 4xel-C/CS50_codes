@@ -5,15 +5,138 @@
 {% endblock %}
 
 {% block main %}
-<div class="container d-flex justify-content-center">
-  <h1>Your account</h1>
+<div class="container justify-content-center">
+  <h1 class="mb-3">Account</h1><div class="row">
+    
+    <h3 class="mb-4">Your informations</h3>
+  <div class="container col-3 text-center border border-black mb-4 pt-2">
+      <p><strong>Login: </strong>{{ user.login  }}</p>
+      <p><strong>Last Name: </strong>{{ user.last_name  }}</p>
+      <p><strong>First Name: </strong>{{ user.first_name  }}</p>
+      <p><strong>Laboratory: </strong>{{ user.laboratory  }}</p>
+      <p><strong>Status: </strong>{{ user.status }}</p>
+  </div>
+
+  <div class="container mb-3">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#password">Change password</button>
+  </div>
+  <div class="container mb-3">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#laboratory">Change your laboratory</button>
+  </div>
+  <div class="container mb-3">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#info">Change informations</button>
+  </div>
+  </div>
+
+<!-- Charge password window -->
+<div class="modal fade" id="password" tabindex="-1" aria-labelledby="passwordLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header container">
+        <h1 class="modal-title fs-5" id="passwordLabel">Change password</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/account" method="post">
+          <div class="mb-3">
+            <label for="old_password" class="col-form-label">Old password</label>
+            <input type="password" class="form-control" name="old_password">
+          </div>
+          <div class="mb-3">
+            <label for="new-password" class="col-form-label">New password</label>
+            <input type="password" class="form-control" name="new_password">
+          </div>
+          <div class="mb-3">
+            <label for="confirmation" class="col-form-label">Confirmation</label>
+            <input type="password" class="form-control" name="confirmation">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="submit_type" value="password">Submit</button>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
 </div>
-<div class="container d-flex justify-content-center">
-  <ul>
-    <li>Change password</li>
-    <li>Change laboratory</li>
-    <li>Edit name</li>
-  <ul/>
+
+<!-- Charge laboratory window -->
+<div class="modal fade" id="laboratory" tabindex="-1" aria-labelledby="laboratoryLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header container">
+        <h1 class="modal-title fs-5" id="laboratoryLabel">Change Laboratory</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/account" method="post">
+          <div>
+            <label for="inputLab" class="form-label">Laboratory</label>
+            <select id="inputLab" class="shadow form-select" name="laboratory">
+              <option selected>Your laboratory</option>
+              <option value="340">340</option>
+              <option value="345">345</option>
+              <option value="348">348</option>
+              <option value="353">353</option>
+              <option value="356">356</option>
+              <option value="361">361</option>
+              <option value="363">363</option>
+              <option value="368">368</option>
+              <option value="425">425</option>
+              <option value="448">448</option>
+              <option value="453">453</option>
+              <option value="456">456</option>
+              <option value="461">461</option>
+              <option value="automation">automation</option>
+              <option value="epl">epl</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="submit_type" value="laboratory">Submit</button>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<!-- Charge name / surname / manager -->
+<div class="modal fade" id="info" tabindex="-1" aria-labelledby="infoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header container">
+        <h1 class="modal-title fs-5" id="infoLabel">Change your data</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/account" method="post">
+          <div class="mb-3">
+            <label for="lname" class="col-form-label">Last Name</label>
+            <input type="text" class="form-control" name="lname" value={{ user.last_name }}>
+          </div>
+          <div class="mb-3">
+            <label for="fname" class="col-form-label">First Name</label>
+            <input type="text" class="form-control" name="fname" value={{ user.first_name}} >
+          </div>
+          <div class="col-12 d-flex justify-content-center">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="manager" name="manager" value="manager" {% if user.status  == "manager" %} checked {% endif %}>
+              <label class="form-check-label" for="manager">Are you a manager?</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="submit_type" value="info">Submit</button>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
 </div>
 
 {% endblock %}

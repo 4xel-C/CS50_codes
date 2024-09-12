@@ -9,7 +9,7 @@ from models import Base, User, Absence
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
-from helpers import login_required
+from helpers import login_required, laboratory_list
 
 # Configure application
 app = Flask(__name__)
@@ -73,7 +73,7 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
         user = db.query(User).filter_by(login=username).first()
-
+ 
         # Ensure username exists and password is correct
         if not user or not check_password_hash(user.password, password):
             flash("Invalid username or password")
@@ -99,7 +99,6 @@ def logout():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    laboratory_list = ["340", "345", "348", "353", "356", "361", "363", "368", "425", "448", "453", "456", "461", "automation", "epl"]
     
     if request.method == "POST":
         login = request.form.get("login")
@@ -108,13 +107,15 @@ def register():
         laboratory = request.form.get("laboratory")
         password = request.form.get("password")
         status = request.form.get("manager")
+        if not status:
+            status = "technician"
 
 
         # check problems
         if not login or not last_name or not first_name:
             flash("Username or name missing")
             return redirect("/register")
-        elif status != "manager" and status != None:
+        elif status != "manager" and status != "technician":
             flash("Invalid datas")
             return redirect("/register")
         elif laboratory not in laboratory_list:
@@ -136,6 +137,7 @@ def register():
             return redirect("/")
         except IntegrityError:
             flash("Username already taken!")
+            db.rollback()
             return redirect("/register")
         
     return render_template("/register.html")
@@ -169,6 +171,7 @@ def declare():
                 db.commit()
             except IntegrityError:
                 flash(f"{start} is already declared!")
+                db.rollback()
                 return redirect("/declare")
             flash(f"Absence declared on {start}")
             return redirect("/declare")
@@ -192,6 +195,79 @@ def declare():
             
     return render_template("/declare.html")
 
+@app.route("/account",  methods=["GET", "POST"])
+@login_required
+def account():
+    user = db.query(User).filter_by(id=session["user_id"]).first()
+    # Change password.
+    if request.method == "POST" and request.form.get("submit_type") == "password":
+        # manage change password 
+        old_password = request.form.get("old_password")
+        password = request.form.get("new_password")
+        confirmation = request.form.get("confirmation")
+
+        if not old_password or not password or not confirmation:
+            flash("Missing inputs")
+            return redirect("/account")
+        
+        if password == old_password:
+            flash("Password already in use")
+            return redirect("/account")
+
+        if password != confirmation:
+            flash("password and confirmation different")
+            return redirect("/account")
+        
+        # update  the password hash in the db
+        user.password = generate_password_hash(password)
+        db.commit()
+        flash("New password  Updated!")
+        return redirect("/account")
+    
+    # Change laboratory
+    if request.method == "POST" and request.form.get("submit_type") == "laboratory":
+        # manage change laboratory 
+        laboratory = request.form.get("laboratory")
+
+        # check user input
+        if laboratory not in laboratory_list:
+            flash("Incorrect laboratory selected")
+            return redirect("/account")
+        
+        # upddate laboratory
+        user.laboratory = laboratory
+        db.commit()
+        flash("Laboatory successfully updates!")
+        return redirect("/account")
+
+
+    if request.method == "POST" and request.form.get("submit_type") == "info":
+        # manage change information 
+        last_name = request.form.get("lname")
+        first_name = request.form.get("fname")
+        status = request.form.get("manager")
+
+        if not last_name or not first_name:
+            flash("Name missing")
+            return redirect("/account")
+
+        if status != "manager" and status != None:
+            flash("Wrong parameter")
+            return redirect("/account")
+        
+        if status == None:
+            status = "technician"
+
+        # update database
+        user.last_name = last_name
+        user.first_name = first_name
+        user.status = status
+        db.commit()
+        flash("Changes successful")
+        return redirect("/account")
+        
+    return render_template("/account.html", user=user)
+
 @app.route("/third")
 @login_required
 def third():
@@ -203,10 +279,7 @@ def third():
 def fourth():
     return render_template("/fourth.html")
 
-@app.route("/account")
-@login_required
-def account():
-    return render_template("/account.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
