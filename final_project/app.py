@@ -1,5 +1,5 @@
 import os
-import datetime
+from datetime import datetime, timedelta
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from sqlalchemy import create_engine
@@ -17,6 +17,7 @@ app = Flask(__name__)
 # Configure session to use filesystem on server side (instead of signed cookies on client side)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
+app.config["DEBUG"] = True
 
 Session(app)
 
@@ -98,18 +99,27 @@ def logout():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    laboratory_list = ["340", "345", "348", "353", "356", "361", "363", "368", "425", "448", "453", "456", "461", "automation", "epl"]
+    
     if request.method == "POST":
         login = request.form.get("login")
         first_name = request.form.get("first_name")
         last_name =  request.form.get("last_name")
         laboratory = request.form.get("laboratory")
         password = request.form.get("password")
+        status = request.form.get("manager")
 
 
         # check problems
         if not login or not last_name or not first_name:
             flash("Username or name missing")
             return redirect("/register")
+        elif status != "manager" and status != None:
+            flash("Invalid datas")
+            return redirect("/register")
+        elif laboratory not in laboratory_list:
+            flash("Invalid laboratory")
+            return redirect("/register") 
         elif not password or not request.form.get("confirmation"):
             flash("Missing password or confirmation")
             return redirect("/register")
@@ -118,7 +128,7 @@ def register():
             return redirect("/register")
             
         # update database
-        user = User(last_name = last_name, first_name = first_name, laboratory = laboratory, login = login, password = generate_password_hash(password))
+        user = User(last_name = last_name, first_name = first_name, laboratory = laboratory, login = login, status = status, password = generate_password_hash(password))
         try:
             db.add(user)
             db.commit()
@@ -130,3 +140,74 @@ def register():
         
     return render_template("/register.html")
 
+@app.route("/declare", methods=["GET", "POST"])
+@login_required
+def declare():
+    
+    if request.method == "POST":
+        today = datetime.now().date()
+        start = request.form.get("start")
+        end = request.form.get("end")
+        
+        try:
+            start = datetime.strptime(start, "%Y-%m-%d").date()
+            if end:
+                end = datetime.strptime(end, "%Y-%m-%d").date()
+        except ValueError:
+            flash("Please input a correct date")
+            return redirect("/declare")
+        
+        if not start:
+            flash("Please input a correct date")
+            return redirect("/declare")
+        
+        # If only 1 day is declared:
+        if not end or end == start:
+            # SAVE THE DAY ENTERED IN START
+            try:
+                db.add(Absence(date=today, user_id=session["user_id"]))
+                db.commit()
+            except IntegrityError:
+                flash(f"{start} is already declared!")
+                return redirect("/declare")
+            flash(f"Absence declared on {start}")
+            return redirect("/declare")
+        
+        elif start < today or end < start:
+            flash("Please input a correct date")
+            return redirect("/declare")
+        
+        else:
+            # calculate each day of absence and save them into the db absences
+            while today <= end:
+                try:
+                    db.add(Absence(date=today, user_id=session["user_id"]))
+                    db.commit()
+                except IntegrityError:
+                    db.rollback()
+                today += timedelta(days=1)
+            
+            flash(f"Absence declared from {start} to {end}")
+            return redirect("/declare")
+            
+    return render_template("/declare.html")
+
+@app.route("/third")
+@login_required
+def third():
+    return render_template("/third.html")
+
+  
+@app.route("/fourth")
+@login_required
+def fourth():
+    return render_template("/fourth.html")
+
+@app.route("/account")
+@login_required
+def account():
+    return render_template("/account.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
+    

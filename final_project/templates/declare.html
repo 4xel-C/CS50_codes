@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Declare
+{% endblock %}
+
+{% block main %}
+    <h1>Declare an absence</h1>
+    <form class="row g-3 justify-content-center" action="/declare" method="post">
+        <div class="col-md-3 ">
+          <label for="startDate" class="form-label">From...</label>
+          <input type="date" class="form-control" id="startDate" name="start">
+        </div>
+        <div class="row g-2 justify-content-center">
+        <div class="col-md-3">
+          <label for="endDate" class="form-label">To...</label>
+          <input type="date" class="form-control" id="endDate" name="end">
+        </div>
+        </div>
+
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+{% endblock %}

@@ -5,25 +5,30 @@
 {% endblock %}
 
 {% block main %}
-<form class="row g-3" action="/register" method="post">
-    <div class="col-md-6">
+<form class="row g-3 justify-content-center" action="/register" method="post">
+    <div class="col-md-3"></div>
+    <div class="col-md-3">
       <label for="inputName" class="form-label">First Name</label>
       <input type="text" class="shadow form-control" id="inputName" name="first_name">
     </div>
-    <div class="col-md-6">
-      <label for="inputLName" class="form-label">Last Name</label>
-      <input type="text" class="shadow form-control" id="inputLName" name="last_name">
-    </div>
-    <div class="col-md-6">
+    <div class="col-md-3">
       <label for="inputLogin" class="form-label">Login</label>
       <input type="text" class="shadow form-control" id="inputLogin" name="login">
     </div>
-    <div class="col-md-6">
+    <div class="col-md-3"></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3">
+      <label for="inputLName" class="form-label">Last Name</label>
+      <input type="text" class="shadow form-control" id="inputLName" name="last_name">
+    </div>    
+    <div class="col-md-3">
       <label for="inputPassword" class="form-label">Password</label>
       <input type="password" class="shadow form-control" id="inputPassword" name="password">
     </div>
-    <div class="col-md-6">
-      <label for="inputLab" class="form-label">Your laboratory N°</label>
+    <div class="col-md-3"></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3">
+      <label for="inputLab" class="form-label">Your laboratory</label>
       <select id="inputLab" class="shadow form-select" name="laboratory">
         <option selected>Your laboratory</option>
         <option value="340">340</option>
@@ -43,10 +48,17 @@
         <option value="epl">epl</option>
       </select>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-3">
         <label for="inputConfirmation" class="form-label">Password confirmation</label>
         <input type="password" class="shadow form-control" id="inputConfirmation" name="confirmation">
+    </div>
+    <div class="col-3"></div>
+    <div class="col-12 d-flex justify-content-center">
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="manager" name="manager" value="manager">
+        <label class="form-check-label" for="manager">Are you a manager?</label>
       </div>
+    </div>
     <div class="col-12">
       <button type="submit" class="btn btn-primary">Sign in</button>
     </div>

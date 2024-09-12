@@ -1,12 +1,21 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Presence manager
+    Fourth floor
 {% endblock %}
 
 {% block main %}
-<h1>Your next absences</h1>
-<h1>On site today</h1>
+<h1>Fourth floor presence</h1>
+<form class="row g-3 justify-content-center" action="/third" method="post">
+  <div class="col-md-3 ">
+    <label for="startDate" class="form-label">Select a date</label>
+    <input type="date" class="form-control" id="startDate" name="date">
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+  
+</form>
     <table class="table">
         <thead>
           <tr>

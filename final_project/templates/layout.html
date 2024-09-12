@@ -21,7 +21,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="/index.html">Presence Manager</a>
+                <a class="navbar-brand" href="/">Presence Manager</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -29,23 +29,16 @@
                     {% if session["user_id"] %}
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/declare' %}active{% endif %}" aria-current="page" href="/declare.html">Declare an absence</a>
-                            </li>
-                            <li class="nav-item">
-                            <a class="nav-link" href="/third.html">3rd floor presence</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/fourth.html">4th floor presence</a>
+                            <a class="nav-link {% if request.path == '/declare' %}active{% endif %}" aria-current="page" href="/declare">Declare an absence</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Link
+                                  Lab plans
                                 </a>
                                 <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="#">Action</a></li>
-                                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                                  <li><a class="dropdown-item" href="/third">3rd flood</a></li>
                                   <li><hr class="dropdown-divider"></li>
-                                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                  <li><a class="dropdown-item" href="/fourth">4th floor</a></li>
                                 </ul>
                               </li>
                         </ul>
