@@ -1,11 +1,4 @@
-import csv
-import datetime
-import pytz
-import requests
-import urllib
-import uuid
-
-from flask import redirect, render_template, request, session
+from flask import redirect, session
 from functools import wraps
 
 laboratory_list = ["340", "345", "348", "353", "356", "361", "363", "368", "425", "448", "453", "456", "461"]
