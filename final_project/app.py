@@ -47,6 +47,7 @@ def after_request(response):
 @app.route("/")
 @login_required
 def index():
+    today = datetime.now()
     return render_template("index.html")
 
 
@@ -140,7 +141,7 @@ def register():
             db.rollback()
             return redirect("/register")
         
-    return render_template("/register.html")
+    return render_template("/register.html", laboratory_list=laboratory_list)
 
 @app.route("/declare", methods=["GET", "POST"])
 @login_required
@@ -237,7 +238,7 @@ def account():
         # upddate laboratory
         user.laboratory = laboratory
         db.commit()
-        flash("Laboatory successfully updates!")
+        flash("Laboatory successfully updated!")
         return redirect("/account")
 
 
@@ -266,7 +267,7 @@ def account():
         flash("Changes successful")
         return redirect("/account")
         
-    return render_template("/account.html", user=user)
+    return render_template("/account.html", user=user, laboratory_list=laboratory_list)
 
 @app.route("/third")
 @login_required

@@ -75,21 +75,9 @@
             <label for="inputLab" class="form-label">Laboratory</label>
             <select id="inputLab" class="shadow form-select" name="laboratory">
               <option selected>Your laboratory</option>
-              <option value="340">340</option>
-              <option value="345">345</option>
-              <option value="348">348</option>
-              <option value="353">353</option>
-              <option value="356">356</option>
-              <option value="361">361</option>
-              <option value="363">363</option>
-              <option value="368">368</option>
-              <option value="425">425</option>
-              <option value="448">448</option>
-              <option value="453">453</option>
-              <option value="456">456</option>
-              <option value="461">461</option>
-              <option value="automation">automation</option>
-              <option value="epl">epl</option>
+              {% for laboratory in laboratory_list %}
+              <option value={{ laboratory }}>{{ laboratory }}</option>
+              {% endfor %}
             </select>
           </div>
           <div class="modal-footer">
