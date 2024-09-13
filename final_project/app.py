@@ -44,11 +44,65 @@ def after_request(response):
 
 
 # Login_required decorator redirect to "/login" if the user is not logged on.
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
-    today = datetime.now()
-    return render_template("index.html")
+    today = datetime.now().date()
+    absences = db.query(Absence).filter_by(user_id=session["user_id"]).all()
+
+    # Delete entry
+    if request.method == "POST":
+        absence_id = request.form.get("absence_id")
+        try:
+            db.delete(db.query(Absence).filter_by(id=absence_id).first())
+            db.commit()
+        except:
+            db.rollback()
+            flash("Error while deleting the entry")
+        flash("Entry deleted")
+        return redirect("/")
+
+    # get the presence for today
+    # get users absents today
+    subquery = db.query(Absence.user_id).filter_by(date=today).subquery()
+    # get user presents
+    presents = db.query(User).filter(~User.id.in_(subquery)).order_by(User.laboratory).all()
+    #Check presence
+    count = {
+        "all": len(presents),
+        "managers":0,
+        "third_floor":0,
+        "fourth_floor":0
+    }
+
+    laboratory_count = {}
+    critical_labs = []
+    isolation = {}
+
+    for present in presents:
+        if present.status == "manager":
+            count["managers"] += 1
+        if present.laboratory.startswith("3"):
+            count["third_floor"] += 1
+        elif present.laboratory.startswith("4"):
+            count["fourth_floor"] += 1   
+
+        if present.laboratory in laboratory_count:
+            laboratory_count[present.laboratory] += 1
+        else:
+            laboratory_count[present.laboratory] = 1
+
+# if someone is alone in his laboratory, append to the disctionnary
+    for lab, number in laboratory_count.items():
+        if number == 1:
+            critical_labs.append(lab)
+    
+    for lab in critical_labs:
+        for present in presents:
+            if present.laboratory == lab:
+                isolation[lab] = present.first_name + " " + present.last_name
+
+    return render_template("index.html", absences=absences, presents=presents, count=count, isolation=isolation)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -283,5 +337,5 @@ def fourth():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
     

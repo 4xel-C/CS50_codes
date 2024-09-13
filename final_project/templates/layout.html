@@ -31,16 +31,6 @@
                             <li class="nav-item">
                              <a class="nav-link {% if request.path == '/declare' %}active{% endif %}" aria-current="page" href="/declare">Declare an absence</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle {% if request.path == '/third' or request.path == '/fourth' %}active{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Lab plans
-                                </a>
-                                <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="/third">3rd flood</a></li>
-                                  <li><hr class="dropdown-divider"></li>
-                                  <li><a class="dropdown-item" href="/fourth">4th floor</a></li>
-                                </ul>
-                              </li>
                         </ul>
                         
                         <ul class="navbar-nav ms-auto mt-2">
@@ -67,12 +57,10 @@
 
         <hr id="nav_separator">
 
-        <main class="container py-5 text-center">
+        <main class="container py-3 text-center">
             {% block main %}{% endblock %}
         </main>
 
-        <footer class="mb-5">
-        </footer>
 
     </body>
 

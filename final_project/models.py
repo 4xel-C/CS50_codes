@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, UniqueConstraint, create_engine
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Date, UniqueConstraint, create_engine
 from sqlalchemy.orm import relationship, sessionmaker, declarative_base
 from datetime import *
 
@@ -23,12 +23,11 @@ class Absence(Base):
     __tablename__ = 'absences'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    date = Column(DateTime, nullable=False)
+    date = Column(Date, nullable=False)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
 
     user = relationship('User', back_populates='absences')
-    
-    
+
     # duplicates not possible
     __table_args__ = (
         UniqueConstraint('date', 'user_id', name='uix_all_columns'),  # Contrainte d'unicité

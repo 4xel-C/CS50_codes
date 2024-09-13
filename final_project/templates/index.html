@@ -5,37 +5,89 @@
 {% endblock %}
 
 {% block main %}
-<h1>Your next absences</h1>
-<h1>On site today</h1>
+  <h3>Report of the day</h3>
+  <div class="container col-xl-5 text-center border border-black mb-4 pt-2">
+    <p><b>Employees on site: </b>{{ count["all"] }}</p>
+    <p><b>Managers on site: </b>{{ count["managers"] }}</p>
+    <p><b>Third-floor presence: </b>{{ count["third_floor"] }}</p>
+    <p><b>Fourth_floor presence: </b>{{ count["fourth_floor"] }}</p>
     <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Laboratory</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
+      <thead>
+        <tr>
+          <th>Chemist Isolated</th> <th>Laboratory</th>
+        </tr>
+        {% if isolation %}
+      </thead>
+      <tbody>
+        {% for lab in isolation %}
+        <tr><td>{{ isolation[lab] }}</td><td>{{ lab }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+
+<hr>
+
+
+<div class="row justify-content-center">
+  <div class="col-xl-5 border">
+    <h3>On site today</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Laboratory</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for present in  presents %}
+        <tr>
+          <td>{{ present.first_name }}</td>
+          <td>{{ present.last_name }}</td>
+          <td>{{ present.laboratory }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+  <div class="col-xl-5 mb-5">
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <h3>Your next absences</h3>
+          </button>
+        </h2> 
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            {% if absences %}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Year</th> <th>Month</th> <th>Day</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for absence in absences %}
+                <tr><td>{{ absence.date.year }}</td><td>{{ absence.date.month }}</td><td>{{ absence.date.day }}</td>
+                <td><form action="/" method="post"><input type="hidden" name="absence_id" value="{{ absence.id }}"><button class="btn btn-primary" type="submit">delete</button></form></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% else %}
+            <p><b>No absences registered</b></p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
 
