@@ -323,19 +323,6 @@ def account():
         
     return render_template("/account.html", user=user, laboratory_list=laboratory_list)
 
-@app.route("/third")
-@login_required
-def third():
-    return render_template("/third.html")
-
-  
-@app.route("/fourth")
-@login_required
-def fourth():
-    return render_template("/fourth.html")
-
-
-
 if __name__ == "__main__":
     app.run()
     
