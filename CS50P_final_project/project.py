@@ -176,7 +176,7 @@ def get_scores(leaderboard) -> None:
     scores = leaderboard.get_data()
 
     # sort the scores
-    sorted_scores = sorted(scores, key=lambda x: (-int(x["score"]), x["date"]))
+    sorted_scores = scores.sort(key=lambda x: (int(x["score"])), reverse=True)
     # get the slive of the last 20 scores:
     sorted_scores = scores[-20:]
     headers = "Ranking".center(10, "-") + "Name".center(15, "-") + "date".center(15, "-") + "Score".center(10, "-") + "level".center(10, "-")
