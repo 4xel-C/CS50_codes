@@ -1,6 +1,6 @@
 # Quiz pKa in Chemistry
 
-#### Video Demo: <URL>
+#### Video Demo: https://www.youtube.com/watch?v=RHMhoQknBA8
 #### Description
 
 This project is a simple Python quiz that makes use of terminal prompts to answer 20 questions about pKa values.
