@@ -1,4 +1,4 @@
-# Quiz pKa in Chemistry
+# Python pka quiz
 
 #### Video Demo: https://www.youtube.com/watch?v=RHMhoQknBA8
 #### Description
