@@ -1,5 +1,5 @@
 # Presence Manager
-### Video  Demo: https://www.youtube.com/watch?v=AD53mTT1R-4
+
 #### Description:
 
 Presence manage is a small web aplication intended to bu use in  the scobe of my daily work routine as a Final Project to validate CS50 certification.
