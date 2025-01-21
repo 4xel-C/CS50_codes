@@ -3,7 +3,7 @@ This repository contains all exercises and project realization required for the 
 You can find all the courses and the exercices/project requested on https://cs50.harvard.edu/x/2024/.
 # Summary:
 
-## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" width="40px" />
+## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" width="40px" /> - C
 - **[Filter:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_filter)** A project written in C used to apply different filter to a BMP image.
 - **[Credit:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_credit)** A project written in C to check the validity of a credit card number using the Luhn's algorithm.
 - **[Trie:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_trie)** A project using *trie* data structure to store dog names and check if a specific name exist using an O(1) complexity.
@@ -18,7 +18,7 @@ You can find all the courses and the exercices/project requested on https://cs50
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" width="50px"/> - Python
 
-## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" width="50px"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" width="50px" /> - HTML/CSS
+## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" width="50px"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" width="50px" /><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" width="50px"/> - HTML/CSS/JavaScript
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" width="50px"/> - SQL
 - **fiftyville:** An "escape game" like to request multiples tables of a data base trying to solve a mystery.

@@ -9,23 +9,23 @@ from sys import argv
 
 def main():
 
-    # TODO: Check for command-line usage
+    # Check for command-line usage
     if len(argv) != 3:
         print("Use: dna.py csc_data dsn_sequence")
         return 1
 
-    # TODO: Read database file into a variable
+    # Read database file into a variable
     database = []
     with open(argv[1]) as file:
         reader = csv.DictReader(file)
         for row in reader:
             database.append(row)
 
-    # TODO: Read DNA sequence file into a variable
+    # Read DNA sequence file into a variable
     with open(argv[2]) as file:
         dna = file.read()
 
-    # TODO: Find longest match of each STR in DNA sequence
+    # Find longest match of each STR in DNA sequence
     # iterate through all the STR
     str_count = {}
     for str in database[0]:
@@ -34,12 +34,12 @@ def main():
         # create the dictionnary key and update the value by the longest run
         str_count[str] = longest_match(dna, str)
 
-    # TODO: Check database for matching profiles
+    # Check database for matching profiles
     for row in database:
         # match switch to False if any of the str dosn't match
         match = True
         for str in str_count:
-            # if an occurence dosn't match, update match to false  and breack the loop
+            # if an occurence dosn't match, update match to false and break the loop
             if int(row[str]) != str_count[str]:
                 match = False
                 break
