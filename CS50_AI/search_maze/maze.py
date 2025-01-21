@@ -1,4 +1,5 @@
 import sys
+import pillow as PIL
 
 # create Node 
 class Node():
