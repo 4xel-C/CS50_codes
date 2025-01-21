@@ -28,7 +28,7 @@ int main(void)
     // Create a new family with three generations
     person *p = create_family(GENERATIONS);
 
-    // Print family tree of blood types
+    // Print family tree of blood typesj
     print_family(p, 0);
 
     // Free memory
@@ -38,7 +38,7 @@ int main(void)
 // Create a new individual with `generations`
 person *create_family(int generations)
 {
-    // TODO: Allocate memory for new person
+    // Allocate memory for new person
     person *current = malloc(sizeof(person));
 
     // If there are still generations left to create
@@ -48,11 +48,11 @@ person *create_family(int generations)
         person *parent0 = create_family(generations - 1);
         person *parent1 = create_family(generations - 1);
 
-        // TODO: Set parent pointers for current person
+        // Set parent pointers for current person
         current->parents[0] = parent0;
         current->parents[1] = parent1;
 
-        // TODO: Randomly assign current person's alleles based on the alleles of their parents
+        // Randomly assign current person's alleles based on the alleles of their parents
         current->alleles[0] = parent0->alleles[rand() % 2]; // take a random number between 0 & 1 to take either one or the other of the parent allele
         current->alleles[1] = parent1->alleles[rand() % 2];
 
@@ -61,36 +61,36 @@ person *create_family(int generations)
     // If there are no generations left to create
     else
     {
-        // TODO: Set parent pointers to NULL
+        // Set parent pointers to NULL
         current->parents[0] = NULL;
         current->parents[1] = NULL;
 
-        // TODO: Randomly assign alleles
+        // Randomly assign alleles
         current->alleles[0] = random_allele();
         current->alleles[1] = random_allele();
     }
 
-    // TODO: Return newly created person
+    // Return newly created person
     return current;
 }
 
 // Free `p` and all ancestors of `p`.
 void free_family(person *p)
 {
-    // TODO: Handle base case
+    // Handle base case
     if (p->parents[0] == NULL)
     {
         return;
     }
 
-    // TODO: Free parents recursively
+    // Free parents recursively
     else
     {
         free_family(p->parents[0]);
         free_family(p->parents[1]);
     }
 
-    // TODO: Free child
+    // Free child
     free(p);
     return;
 }
