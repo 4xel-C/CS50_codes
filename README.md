@@ -13,10 +13,11 @@ You can find all the courses and the exercices/project requested on https://cs50
 - **[Speller:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_speller)** A project to report misspelled words from a text.
 - **[Recover:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_recover)** A project to read a memory card file containing contiguous JPEG images to extract them back.
 - **[Runoff:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_runoff)** A project to simulate a Runoff voting for elections.
-- **[scrabble:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_scrabble)** A project to calculate the Scrabble score of a word.
+- **[Scrabble:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_scrabble)** A project to calculate the Scrabble score of a word.
 - **[Caesar:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_caesar)** A project that implements a simple Caesar cipher encryption program in C.
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" width="50px"/> - Python
+- **[DNA:](https://github.com/4xel-C/CS50_codes/tree/reorganization/python_dna)** A python script to parse DNA sequences and compare them to a database to determine a person's identity based on their *Short Tandem Repeats*.
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" width="50px"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" width="50px" /><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" width="50px"/> - HTML/CSS/JavaScript
 
