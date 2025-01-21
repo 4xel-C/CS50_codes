@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
         }
 
         // If the pointer is not NULL, it means we have found the first file and we can start
-        // writting or continue writting
+        // writting or continue writting the current image
         if (img != NULL)
         {
             fwrite(buffer, 1, 512, img);

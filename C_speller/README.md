@@ -5,7 +5,7 @@ This C program implements a spell checker that loads a dictionary, checks the sp
 ## Requirements
 
 - **C Compiler**: GCC (GNU Compiler Collection)
-- **CS50 Library**: This program requires the CS50 library for the `load`, `check`, and `unload` functions. Follow the instructions to install the CS50 library: [CS50 Library Installation](https://cs50.harvard.edu/x/2021/psets/1/pset1/#getting-started).
+- **CS50 Library**: This program requires the CS50 library for the `load`, `check`, and `unload` functions.
 - **Dictionary File**: The program uses a dictionary file, which should be placed in the `dictionaries/large` folder or specified as a command-line argument.
 
 ## How It Works

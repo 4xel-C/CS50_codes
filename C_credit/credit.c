@@ -36,6 +36,7 @@ int main(void)
         printf("INVALID\n");
         return 0;
     }
+    
     // get the first numbers (each 2 numbers starting for last)
     while (number > 0)
     {

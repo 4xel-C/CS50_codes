@@ -77,17 +77,17 @@ int main(int argc, char *argv[])
     int height = abs(bi.biHeight);
     int width = bi.biWidth;
 
-    // Allocate memory for image
+    // Allocate memory for image (declare a 2D array of image ('width' - group of RGBTRIPLE))
     RGBTRIPLE(*image)[width] = calloc(height, width * sizeof(RGBTRIPLE));
     if (image == NULL)
     {
-        printf("Not enough memory to store image.\n");
+        printf("Not enough memory to store image.\n"  );
         fclose(outptr);
         fclose(inptr);
         return 7;
     }
 
-    // Determine padding for scanlines
+    // Determine padding for scanlines to have a multiple of 4 bytes
     int padding = (4 - (width * sizeof(RGBTRIPLE)) % 4) % 4;
 
     // Iterate over infile's scanlines
