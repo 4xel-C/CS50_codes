@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 
     float factor = atof(argv[3]);
 
-    // TODO: Copy header from input file to output file
+    // Copy header from input file to output file
     // Create the variable to store the header (44 bytes)
     uint8_t header[HEADER_SIZE];
     // Read the file and save the datas into the header variable
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     // write the data of the header variable into the new file.
     fwrite(header, HEADER_SIZE, 1, output);
 
-    // TODO: Read samples from input file and write updated data to output file
+    // Read samples from input file and write updated data to output file
     // create a buffer for a single sample (2 bytes per samples, 16bits.)
 
     int16_t buffer;

@@ -1,3 +1,6 @@
 {
-    "livePreview.defaultPreviewPath": "/Homepage/index.html"
+    "livePreview.defaultPreviewPath": "/Homepage/index.html",
+    "files.associations": {
+        "stdbool.h": "c"
+    }
 }
