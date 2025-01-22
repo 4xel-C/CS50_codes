@@ -20,9 +20,12 @@ You can find all the courses and the exercices/project requested on https://cs50
 - **[DNA:](https://github.com/4xel-C/CS50_codes/tree/reorganization/python_dna)** A python script to parse DNA sequences and compare them to a database to determine a person's identity based on their *Short Tandem Repeats*.
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" width="50px"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" width="50px" /><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" width="50px"/> - HTML/CSS/JavaScript
+- **Homepage:** HTML/CSS exercice to work on an home page exemple with use of simple bootstrap/JS.
+- **JavaScript:** Simple JavaScript manipulation to work on interactivity.
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" width="50px"/> - SQL
 - **fiftyville:** An "escape game" like to request multiples tables of a data base trying to solve a mystery.
 - **movie:** A list of exemples request (including nested queries) to display result from a databases of movies.
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg" width="50px" /> - Flask
+- **Birthday:** Simple application to register birthday in a list to work on flask framework.
