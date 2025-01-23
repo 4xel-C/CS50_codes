@@ -17,6 +17,7 @@ You can find all the courses and the exercices/project requested on https://cs50
 - **[Volume:](C_Volume_modification)** Source code to read an audio file and write a copy of it modifying the volume by a given factor.
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" width="50px"/> - Python
+- **[pka quiz:](python_pka_quizz)** A simple python project displaying a quizz over 5 questions ot help chemists learn their pka.
 - **[DNA:](python_dna)** A python script to parse DNA sequences and compare them to a database to determine a person's identity based on their *Short Tandem Repeats*.
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" width="50px"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" width="50px" /><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" width="50px"/> - HTML/CSS/JavaScript
@@ -24,10 +25,10 @@ You can find all the courses and the exercices/project requested on https://cs50
 - **[Javascript:](web_javascript)** Simple JavaScript manipulation to work on interactivity.
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" width="50px"/> - SQL
-- **fiftyville:** An "escape game" like to request multiples tables of a data base trying to solve a mystery.
-- **movie:** A list of exemples request (including nested queries) to display result from a databases of movies.
+- **[fiftyville:](SQL)** An "escape game" like to request multiples tables of a data base trying to solve a mystery.
+- **[movie:](SQL)** A list of exemples request (including nested queries) to display result from a databases of movies.
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg" width="50px" /> - Flask
-- **Birthday:** Simple application to register birthday in a list to work on flask framework.
-- **Finance:** Simple finace application that use stock price from Yahoo's API to allow user to virtually sell and buy stock options.
-- **Store:** Simple shopping application built using Flask that allows users to select books from a database and remember their selections using cookies.
+- **[Birthday:](flask_birthday)** Simple application to register birthday in a list to work on flask framework.
+- **[Finance:](flask_finance)** Simple finace application that use stock price from Yahoo's API to allow user to virtually sell and buy stock options.
+- **[Store:](flask_store)** Simple shopping application built using Flask that allows users to select books from a database and remember their selections using cookies.
