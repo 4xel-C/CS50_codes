@@ -4,24 +4,24 @@ You can find all the courses and the exercices/project requested on https://cs50
 # Summary:
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" width="40px" /> - C
-- **[Caesar:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_caesar)** A project that implements a simple Caesar cipher encryption program in C.
-- **[Credit:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_credit)** A project written in C to check the validity of a credit card number using the Luhn's algorithm.
-- **[Filter:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_filter)** A project written in C used to apply different filter to a BMP image.
-- **[Inheritence](https://github.com/4xel-C/CS50_codes/tree/main/C_inheritance):** A project using C pointers and recursion to simulate genetic inheritence for blood types.
-- **[Readability:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_readability)** A project that calculates the readability score of a given text using the **Coleman-Liau Index**.
-- **[Recover:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_recover)** A project to read a memory card file containing contiguous JPEG images to extract them back.
-- **[Runoff:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_runoff)** A project to simulate a Runoff voting for elections.
-- **[Scrabble:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_scrabble)** A project to calculate the Scrabble score of a word.
-- **[Speller:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_speller)** A project to report misspelled words from a text.
-- **[Trie:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_trie)** A project using *trie* data structure to store dog names and check if a specific name exist using an O(1) complexity.
-- **[Volume:](https://github.com/4xel-C/CS50_codes/tree/reorganization/C_Volume_modification)** Source code to read an audio file and write a copy of it modifying the volume by a given factor.
+- **[Caesar:](C_caesar)** A project that implements a simple Caesar cipher encryption program in C.
+- **[Credit:](C_credit)** A project written in C to check the validity of a credit card number using the Luhn's algorithm.
+- **[Filter:](C_filter)** A project written in C used to apply different filter to a BMP image.
+- **[Inheritence](C_inheritance):** A project using C pointers and recursion to simulate genetic inheritence for blood types.
+- **[Readability:](C_readability)** A project that calculates the readability score of a given text using the **Coleman-Liau Index**.
+- **[Recover:](C_recover)** A project to read a memory card file containing contiguous JPEG images to extract them back.
+- **[Runoff:](C_runoff)** A project to simulate a Runoff voting for elections.
+- **[Scrabble:](C_scrabble)** A project to calculate the Scrabble score of a word.
+- **[Speller:](C_speller)** A project to report misspelled words from a text.
+- **[Trie:](C_trie)** A project using *trie* data structure to store dog names and check if a specific name exist using an O(1) complexity.
+- **[Volume:](C_Volume_modification)** Source code to read an audio file and write a copy of it modifying the volume by a given factor.
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" width="50px"/> - Python
-- **[DNA:](https://github.com/4xel-C/CS50_codes/tree/reorganization/python_dna)** A python script to parse DNA sequences and compare them to a database to determine a person's identity based on their *Short Tandem Repeats*.
+- **[DNA:](python_dna)** A python script to parse DNA sequences and compare them to a database to determine a person's identity based on their *Short Tandem Repeats*.
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" width="50px"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" width="50px" /><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" width="50px"/> - HTML/CSS/JavaScript
-- **[Homepage:](https://github.com/4xel-C/CS50_codes/tree/reorganization/web_homepage)** HTML/CSS exercice to work on an home page exemple with use of simple bootstrap/JS.
-- **[Javascript:](https://github.com/4xel-C/CS50_codes/tree/reorganization/JavaScript)** Simple JavaScript manipulation to work on interactivity.
+- **[Homepage:](web_homepage)** HTML/CSS exercice to work on an home page exemple with use of simple bootstrap/JS.
+- **[Javascript:](web_javascript)** Simple JavaScript manipulation to work on interactivity.
 
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" width="50px"/> - SQL
 - **fiftyville:** An "escape game" like to request multiples tables of a data base trying to solve a mystery.
