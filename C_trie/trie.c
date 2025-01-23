@@ -77,6 +77,7 @@ int main(int argc, char *argv[])
                 {
                     new->children[j] = NULL;
                 }
+                // link the new node to the first array
                 cursor->children[index] = new;
             }
 
