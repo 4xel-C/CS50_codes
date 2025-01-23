@@ -1,5 +1,6 @@
 # CS50 Exercices and project
 This repository contains all exercises and project realization required for the CS50 certification.
+
 You can find all the courses and the exercices/project requested on https://cs50.harvard.edu/x/2024/.
 # Summary:
 
